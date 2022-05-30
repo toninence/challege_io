@@ -1,0 +1,51 @@
+.carta-box {
+  width: 250px;
+  height: 250px;
+  position: relative;
+  perspective: 1000px;
+}
+
+.carta-box:hover .carta {
+  transform: rotateY(180deg);
+}
+
+.carta {
+  transform-style: preserve-3d;
+  transition: all 0.4s linear;
+  height: 100%;
+}
+
+.cara {
+  position: absolute;
+  backface-visibility: hidden;
+}
+
+.cara.detras {
+  transform: rotateY(180deg);
+}
+
+.navlink {
+  color: rgba(138, 123, 123, 1);
+}
+
+.navlink:visited {
+  color: rgba(138, 123, 123, 1);
+}
+
+
+@media screen and (width < 1180px) {
+  .carta-box:hover .carta {
+    transform: none;
+  }
+  .cara {
+    position: relative;
+    backface-visibility: visible;
+  }
+  .cara.detras{
+    transform: rotateY(0deg);
+    height: 300px;
+  }
+  .carta-box {
+    height: auto;
+  }
+}
