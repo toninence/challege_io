@@ -1,16 +1,27 @@
 import { Card } from "../Card/Card";
-import { CardsContainer, Div, Title } from "./styles";
 import { FavoritesContext } from "../../context/Favorites/FavoritesContext";
 import { useContext, useEffect, useState } from "react";
 import Loading from "../Loading"
 import Pagination from "../Pagination";
+import { CharacterProps } from '../../interfaces/interfaces';
+const { CardsContainer, Div, Title } = require("./styles");
 
-const Index = (props) => {
+interface props {
+  characters: CharacterProps[];
+  onNext: ()=>void;
+  onPrev: ()=>void;
+  prev:string; 
+  next:string;
+  title?:string;
+
+}
+
+const Index = (props:props) => {
   const { characters, onNext, onPrev, prev, next, title="" } = props;
   const { state, toggleFavorites } = useContext(FavoritesContext);
   const [isFavorite, setIsFavorite] = useState(false);
 
-  const checkFavorite = (ch) => {
+  const checkFavorite = (ch:CharacterProps) => {
     let favorite = false;
     state.favorites.map((fv) => {
       if (fv.id === ch.id) {

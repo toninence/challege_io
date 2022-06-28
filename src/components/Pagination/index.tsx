@@ -1,7 +1,14 @@
 import React from 'react'
-import { Button, ButtonsContainer } from './styles';
+const { Button, ButtonsContainer } = require('./styles');
 
-const index = ({prev, next, onPrev, onNext}) => {
+interface props {
+  prev: string;
+  next: string;
+  onPrev: ()=>void;
+  onNext: ()=>void;
+
+}
+const index = ({prev, next, onPrev, onNext}:props) => {
   return (
     <ButtonsContainer>
     {prev && <Button onClick={onPrev}>prev</Button>}

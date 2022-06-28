@@ -1,11 +1,17 @@
-import { useContext } from "react";
-import { Button, Container, Svg } from "./styles";
-import { FavoritesContext } from "../../context/Favorites/FavoritesContext";
 
-const Index = ({ isFavorite, toggleFavorites, character }) => {
+import { CharacterProps } from '../../interfaces/interfaces';
+const { Button, Container, Svg } = require("./styles");
+
+interface FavoriteProps {
+  isFavorite?: Boolean;
+  toggleFavorites: (character:CharacterProps)=>void;
+  character: CharacterProps;
+}
+
+const Index = ({ isFavorite, toggleFavorites, character }:FavoriteProps) => {
   return (
     <Container onClick={() => toggleFavorites(character)}>
-      <p>{isFavorite ? "Quitar de Favoritos" : "Agregar a Favoritos"} </p>
+      <p>{isFavorite ? "Quitar de Favoritos" : "Agregar a Favoritos"}</p>
 
       <Svg
         selected={isFavorite}

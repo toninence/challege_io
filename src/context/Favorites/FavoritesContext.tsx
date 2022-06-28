@@ -1,15 +1,19 @@
 import { useReducer, createContext } from "react";
+import { FavoritesStateProps, CharacterProps, FavoritesContextProps, FavoritesStatePropsValue } from '../../interfaces/interfaces';
 
-export const FavoritesReducer = (state, action) => {
+interface ActionProps {
+  type: string;
+  payload: CharacterProps;
+}
+export const FavoritesReducer = (state:FavoritesStateProps, action:ActionProps) => {
   const { type, payload } = action;
 
   switch (type) {
     case "ADD_FAVORITE":
       return {
         ...state,
-        favorites: state.favorites.concat(payload),
+        favorites: [...state.favorites, payload],
       };
-      break;
     case "REMOVE_FAVORITE":
       return {
         ...state,
@@ -19,21 +23,25 @@ export const FavoritesReducer = (state, action) => {
           }
         }),
       };
-      break;
     default:
       return state;
-      break;
   }
 };
-export const FavoritesContext = createContext();
+const initialState:FavoritesStateProps = {
+  favorites: []
+};
+export const FavoritesContext = createContext<FavoritesContextProps>({
+  state: initialState,
+  dispatch: () => null,
+  toggleFavorites: (payload:CharacterProps) => {}
+});;
 
-export const FavoritesState = (props) => {
-  const initialState = {
-    favorites: [],
-  };
+
+export const FavoritesState = ({children}:FavoritesStatePropsValue) => {
+  
 
   const [state, dispatch] = useReducer(FavoritesReducer, initialState);
-  const toggleFavorites = (payload) => {
+  const toggleFavorites = (payload:CharacterProps) => {
     let remove=false;
     state.favorites.forEach(fv=>{
       if(fv.id === payload.id){
@@ -57,10 +65,10 @@ export const FavoritesState = (props) => {
     <FavoritesContext.Provider
       value={{
         state,
-        toggleFavorites,
+        toggleFavorites
       }}
     >
-      {props.children}
+      {children}
     </FavoritesContext.Provider>
   );
 };

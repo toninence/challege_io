@@ -5,8 +5,9 @@ import { CharacterData } from "../pages/CharacterData";
 import { Favorites } from "../pages/Favorites";
 import { Location } from "../pages/Location";
 import Navbar from "../components/Navbar";
+import { ThemeProps } from '../interfaces/interfaces';
 
-export const Navigation = ({theme, toggleTheme}) => {
+export const Navigation = ({theme, toggleTheme}:ThemeProps) => {
   return (
     <BrowserRouter>
     <Navbar theme={theme} toggleTheme={toggleTheme} />

@@ -1,5 +1,12 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import {
+import { useContext } from "react";
+import Favorites from "../Favorites";
+import StatusIcon from "../StatusIcon";
+import "./styles.css";
+import { NavLink } from "react-router-dom";
+import { FavoritesContext } from "../../context/Favorites/FavoritesContext";
+import { CharacterProps } from '../../interfaces/interfaces';
+// import { FavoritesContext } from "../../context/Favorites/FavoritesContext";
+const {
   Button,
   CardComponent,
   CardContainer,
@@ -11,21 +18,29 @@ import {
   Species,
   Status,
   TextContainer,
-} from "./styles";
-import Favorites from "../Favorites";
-import StatusIcon from "../StatusIcon";
-import "./styles.css";
-import { NavLink } from "react-router-dom";
-import { FavoritesContext } from "../../context/Favorites/FavoritesContext";
-// import { FavoritesContext } from "../../context/Favorites/FavoritesContext";
+} = require("./styles");
 
-export const Card = (props) => {
+interface CardProps {
+  character: {
+    name: string,
+    image: string,
+    species: string,
+    status: string,
+    url: string,
+    origin: {name:string},
+    location: {name:string, url:string},
+    id: number
+  };
+  toggleFavorites: (payload:CharacterProps)=>void;
+  checkFavorite: (character:CharacterProps) => Boolean;
+};
 
-  const {character, toggleFavorites, checkFavorite} = props;
+export const Card = ({character, toggleFavorites, checkFavorite}:CardProps) => {
+  // const { character, toggleFavorites, checkFavorite } = props;
   const { name, image, species, status, url, origin, location, id } = character;
   const { state } = useContext(FavoritesContext);
   let locationNumber = location.url.split("/");
-  locationNumber = locationNumber[locationNumber.length - 1];
+  let lNumber = locationNumber[locationNumber.length - 1];
 
   const isFavorite = checkFavorite(character);
 
@@ -47,7 +62,7 @@ export const Card = (props) => {
           </div>
           <div>
             <span>Last known location: </span>
-            <NavLink className="navlink" to={`/location/${locationNumber}`}>
+            <NavLink className="navlink" to={`/location/${lNumber}`}>
               <Location>{location.name}</Location>
             </NavLink>
           </div>

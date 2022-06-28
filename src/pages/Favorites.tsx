@@ -1,12 +1,15 @@
 import React, { useContext } from "react";
 import { Card } from "../components/Card/Card";
-import { CardsContainer } from "../components/CharactersContainer/styles";
 import { FavoritesContext } from "../context/Favorites/FavoritesContext";
 import CharactersContainer from "../components/CharactersContainer";
+import { CharacterProps } from '../interfaces/interfaces';
+const { CardsContainer } = require("../components/CharactersContainer/styles");
+
+
 export const Favorites = () => {
   const { state, toggleFavorites } = useContext(FavoritesContext);
 
-  const checkFavorite = (ch) => {
+  const checkFavorite = (ch:CharacterProps) => {
     let favorite = false;
     state.favorites.map((fv) => {
       if (fv.id === ch.id) {

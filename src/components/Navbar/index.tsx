@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Link, Nav, Span, Svg, Switch } from "./styles";
+import { ThemeProps } from '../../interfaces/interfaces';
 import styles from "./styles.module.css";
+const { Link, Nav, Span, Svg, Switch } = require("./styles");
 // import {useTheme} from "../../hooks/";
 
-const Index = ({theme, toggleTheme}) => {
-
+const Index = ({theme, toggleTheme}:ThemeProps) => {
+  console.log(styles);
   const [buttonTheme, setButtonTheme] = useState(theme)
   const changeTheme = ()=>{
     toggleTheme();

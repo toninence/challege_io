@@ -2,12 +2,12 @@ import { Card } from "../components/Card/Card";
 import { useParams } from "react-router-dom";
 import CharactersContainer from "../components/CharactersContainer";
 import React, { useEffect, useState } from "react";
-import useFetch from "../hooks/useFetch";
 import axios from "axios";
+import { CharacterProps } from "../interfaces/interfaces";
 
 export const Location = () => {
   const { idLocation } = useParams();
-  const [charactersByLocation, setCharactersByLocation] = useState();
+  const [charactersByLocation, setCharactersByLocation] = useState<CharacterProps[]>();
   const [city, setCity] = useState("");
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export const Location = () => {
       .then((results) => {
         setCity(results.data.name)
         return results?.data?.residents
-          .map((res) => {
+          .map((res: any) => {
             res = res.split("/");
             res = res[res.length - 1];
             return res;
@@ -36,8 +36,12 @@ export const Location = () => {
 
   return (
     <div>
-      {charactersByLocation?.length >= 1 && (
-        <CharactersContainer title={city} characters={charactersByLocation} />
+      {charactersByLocation && charactersByLocation.length >= 1 && (
+        <CharactersContainer title={city} characters={charactersByLocation} onNext={function (): void {
+          throw new Error("Function not implemented.");
+        } } onPrev={function (): void {
+          throw new Error("Function not implemented.");
+        } } prev={""} next={""} />
       )}
     </div>
   );
